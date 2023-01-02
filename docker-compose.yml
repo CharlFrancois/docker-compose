@@ -1,10 +1,22 @@
 services:
-  web:
-    image: httpd:2.4
+  apache:
+    build: ./apache
     ports:
       - '8080:80'
     volumes:
-      - ./web:/var/www/html
+      - ./apache:/usr/local/apache2/htdocs/
+  php:
+    image: php:7.4-fpm
+    volumes:
+      - ./php/:/var/www/html/
+    ports:
+      - '8100:80'
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8081:80'
+    depends_on:
+      - db
   db:
     platform: linux/x86_64
     image: mysql:5.7
@@ -15,10 +27,6 @@ services:
     volumes:  
       - ./db:/docker-entrypoint-initdb.d
       - db-volume:/var/lib/mysql
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - '8081:80'
 
 volumes:
   db-volume:

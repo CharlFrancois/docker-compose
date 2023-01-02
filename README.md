@@ -11,3 +11,6 @@
 
 #### Environment
 - On détermine ici les variables d'environnement de l'image qu'on utilise
+
+#### Depends On
+- On fait un lien entre les services pour indiquer les dépendences de chacun
